@@ -1,6 +1,6 @@
 [user]
-	name = 
-	email = 
+	name = yeshwanthyk
+	email = yeshwanth.yk@gmail.com
 [core]
 	excludesfile = /Users/kyendamuri/.gitignore_global
 [difftool "sourcetree"]
@@ -10,7 +10,7 @@
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [github]
-	user =
+	user = yeshwanthyk
 [color]
 	ui = true
 [color "branch"]
