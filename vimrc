@@ -154,13 +154,13 @@ autocmd BufWritePre *.py normal m`:%s/\s\+$//e``
 """""""""""""""""""""""""""
 " " => Mini Buffer Explorer
 """""""""""""""""""""""""""
-let g:miniBufExplModSelTarget = 1
-let g:miniBufExplorerMoreThanOne = 0
-let g:miniBufExplModSelTarget = 0
-let g:miniBufExplUseSingleClick = 1
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplVSplit = 15
-let g:miniBufExplSplitBelow=1
+"let g:miniBufExplModSelTarget = 1
+"let g:miniBufExplorerMoreThanOne = 0
+"let g:miniBufExplModSelTarget = 0
+"let g:miniBufExplUseSingleClick = 1
+"let g:miniBufExplMapWindowNavVim = 1
+"let g:miniBufExplVSplit = 15
+"let g:miniBufExplSplitBelow=1
 
 map <c-w><c-t> :WMToggle<cr>
 
@@ -181,8 +181,8 @@ let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
 let NERDTreeShowBookmarks=1
 
 map <F2> :NERDTreeToggle<CR>
-map <F3> :TMiniBufExplorer<CR>
-map <F4> :TlistToggle<CR>
+""map <F3> :TMiniBufExplorer<CR>
+map <F3> :TlistToggle<CR>
 
 nnoremap <Leader>g :GundoToggle<CR>
 let g:gundo_width = 60
@@ -193,3 +193,41 @@ let g:gundo_right = 1
 let g:pydoc_highlight=0
 
 set backspace=2 " make backspace work like most other apps
+
+python << EOF
+import vim
+import re
+
+def SetBreakpoint():
+    import re
+    nLine = int( vim.eval( 'line(".")'))
+    strLine = vim.current.line
+    strWhite = re.search( '^(\s*)', strLine).group(1)
+    vim.current.buffer.append(
+    "%(space)simport ipdb; ipdb.set_trace() %(mark)s Breakpoint %(mark)s" %
+    {'space': strWhite, 'mark': '#' * 30}, nLine - 1)
+
+    for strLine in vim.current.buffer:
+        if strLine == "import ipdb; ipdb.set_trace()":
+            break
+    else:
+      # vim.current.buffer.append( 'import ipdb', 0)
+        vim.command( 'normal j1')
+
+vim.command( 'map <f7> :py SetBreakpoint()<cr>')
+
+def RemoveBreakpoints():
+    import re
+    nCurrentLine = int( vim.eval( 'line(".")'))
+    nLines, nLine = [], 1
+    for strLine in vim.current.buffer:
+        if strLine == "import ipdb;ipdb.set_trace()":
+            nLines.append(nLine)
+        nLine += 1
+    nLines.reverse()
+    for nLine in nLines:
+        vim.command( "normal %dG" % nLine)
+        vim.command( "normal dd")
+        if nLine < nCurrentLine:
+            nCurrent -= 1
+    vim.command( "normal %dG" % nCurrentLine)
