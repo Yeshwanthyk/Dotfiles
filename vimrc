@@ -194,6 +194,21 @@ let g:pydoc_highlight=0
 
 set backspace=2 " make backspace work like most other apps
 
+"TaskList Settings
+map <leader>td <Plug>TaskList
+
+"SuperTab
+
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+
+"Keeps track of tabs
+
+set listchars=tab:>-,eol:+,trail:-,precedes:<,extends:>
+set list
+
+"Break Point ipdb
+
 python << EOF
 import vim
 import re
