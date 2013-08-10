@@ -1,18 +1,16 @@
 # export VIRTUALENV_USE_DISTRIBUTE=1
 source /usr/local/bin/virtualenvwrapper.sh
 export WORKON_HOME=$HOME/.virtualenvs
-
-#Aliases
 alias c="clear"
 alias cl="clear;ls"
 
 alias psx="ps -auxw"
 
-alias ll='ls -FLlb'
+alias ll='ls -FLlb' 
 alias ls='ls -a'
 alias df='df -h'
 
-alias lynx='/Applications/Lynxlet.app/Contents/Resources/lynx/bin/lynx'
+alias lynx='/usr/local/bin/lynx'
 
 alias crtags='ctags -RV'
 
@@ -49,3 +47,7 @@ unset file
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 force_color_prompt=yes
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+[[ -s "~/.rvm/scripts/rvm" ]] && source "~/.rvm/scripts/rvm"
