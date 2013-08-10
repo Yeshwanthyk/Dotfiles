@@ -1,7 +1,6 @@
+call pathogen#infect()
 filetype off
-runtime! autoload/pathogen.vim
-silent! call pathogen#helptags()
-silent! call pathogen#runtime_append_all_bundles()
+syntax on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -71,10 +70,8 @@ set tm=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-syntax on
-
-colorscheme MountainDew
-set background=dark
+colorscheme badwolf 
+"set background=dark
 
 "" Set utf8 as standard encoding and en_US as the standard
 "  language
@@ -124,23 +121,19 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
-map <leader>ct :TlistToggle
 """""""""""""""""""""""""""""""
 " " => Status line
 """""""""""""""""""""""""""""""
 "" Always show the status line
 set laststatus=2
 set nocompatible
-"set statusline=%<%f\
-set statusline+=%f\                    " file name
-"set statusline+=%h%1*%m%r%w%0*         " flags
-set statusline+=%-14.(%l,%c%V%)\ %<%P  " offset
-"set statusline+=\ [%{&ff}/%Y]            " filetype
-"set statusline+=\ [%{getcwd()}]          " current dir
-"set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-set statusline+=%{fugitive#statusline()} "  Git Hotness
-"set statusline+=%w%h%m%r " Options
 
+set statusline=
+set statusline+=%f\                    " file name
+set statusline+=%h%1*%m%r%w%0*         " flags
+set statusline+=%=                     " right align
+set statusline+=%-14.(%l,%c%V%)\ %<%P  " offset
+set statusline+=%{fugitive#statusline()} "Git
 """""""""""""""""""""""""""""""
 " " => Indentation
 """""""""""""""""""""""""""""""
@@ -151,27 +144,15 @@ vmap <D-]> >gv
 
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e``
 
-"""""""""""""""""""""""""""
-" " => Mini Buffer Explorer
-"""""""""""""""""""""""""""
-"let g:miniBufExplModSelTarget = 1
-"let g:miniBufExplorerMoreThanOne = 0
-"let g:miniBufExplModSelTarget = 0
-"let g:miniBufExplUseSingleClick = 1
-"let g:miniBufExplMapWindowNavVim = 1
-"let g:miniBufExplVSplit = 15
-"let g:miniBufExplSplitBelow=1
-
 map <c-w><c-t> :WMToggle<cr>
-
-""PyLint
-
-"set makeprg=pylint\ --reports=n\ --output-format=parseable\ %:p
-"set errorformat=%f:%l:\ %m
 
 "Whitespaces
 :highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+$/
+
+"Autoload
+set autoread
+checktime
 
 "NerdTree Setting
 
@@ -181,8 +162,7 @@ let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
 let NERDTreeShowBookmarks=1
 
 map <F2> :NERDTreeToggle<CR>
-""map <F3> :TMiniBufExplorer<CR>
-map <F3> :TlistToggle<CR>
+map <F4> :TlistToggle<CR>
 
 nnoremap <Leader>g :GundoToggle<CR>
 let g:gundo_width = 60
@@ -190,23 +170,30 @@ let g:gundo_preview_height = 40
 let g:gundo_right = 1
 
 
-let g:pydoc_highlight=0
+"let g:pydoc_highlight=0
 
 set backspace=2 " make backspace work like most other apps
 
 "TaskList Settings
 map <leader>td <Plug>TaskList
 
+"Ctags
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+
 "SuperTab
 
 au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
 
+"Run Php from vim
+autocmd FileType php noremap <C-M> :w!<CR>:!/usr/bin/php %<CR>
+
 "Keeps track of tabs
 
 set listchars=tab:>-,eol:+,trail:-,precedes:<,extends:>
 set list
-
 "Break Point ipdb
 
 python << EOF
