@@ -1,0 +1,8 @@
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'bling/vim-airline'
+Bundle 'sjl/gundo.vim'
+Bundle 'flazz/vim-colorschemes'
+Bundle 'spf13/PIV'
+Bundle 'Raimondi/delimitMate'
+Bundle 'ervandew/supertab'
