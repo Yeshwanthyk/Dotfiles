@@ -9,6 +9,19 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+"
+
+"----------------- THEMES----------------
+"
+Plugin 'sjl/badwolf'
+Plugin 'jnurmine/Zenburn'
+Plugin 'dracula/vim'
+"
+"----------------------------------------
+"
+" vim-gitgutter shows signs for line additions (+), modifications (~), or 
+" removals (-) in the vim window gutter if the file you’re modifying is in a git repo.
+Plugin 'airblade/vim-gitgutter'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -18,12 +31,7 @@ Plugin 'tpope/vim-fugitive'
 " Easy quoting with the surround plugin
 Plugin 'tpope/vim-surround'
 
-"themes
-"
-Plugin 'sjl/badwolf'
-Plugin 'jnurmine/Zenburn'
-Plugin 'dracula/vim'
-
+"Fuzzy finder
 Plugin 'ctrlpvim/ctrlp.vim'
 
 Plugin 'itchyny/lightline.vim'
@@ -34,21 +42,23 @@ Plugin 'tomtom/tcomment_vim'
 " <l><l>w to jump around code
 Plugin 'easymotion/vim-easymotion'
 
-" vim-gitgutter shows signs for line additions (+), modifications (~), or 
-" removals (-) in the vim window gutter if the file you‚Äôre modifying is in a git repo.
-Plugin 'airblade/vim-gitgutter'
+" Allow UNIX commands from within VIM
+Plugin 'tpope/vim-eunuch'
 
+Plugin 'rizzatti/dash.vim'
+
+" Tags and file management
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'majutsushi/tagbar'
-
-Plugin 'terryma/vim-multiple-cursors'
 
 Plugin 'nvie/vim-flake8'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'Vimjas/vim-python-pep8-indent'
 
 Plugin 'justinj/vim-pico8-syntax'
+
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -69,14 +79,34 @@ filetype plugin indent on    " required
 " Make Vim more useful
 
 
-" NERDTree
+" --- NERD Tree ---
+let g:NERDTreeChDirMode = 2
+let g:NERDTreeIgnore = ['\.vim$', '\~$', '\.pyc$', '^__pycache__$', '\.swp$', '\.git$', '\.egg', '\.egg\-info', '\.coverage', '\.tox', '.DS_Store', '.sass-cache']
+let g:NERDTreeSortOrder = ['^__\.py$', '\/$', '*', '\.swp$', '\~$']
+let g:NERDTreeShowBookmarks = 1
+let g:NERDTreeShowHidden = 1
+
 map <C-o> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 
-" Ctags
+" ---- ctags -----
 nnoremap <leader>. :CtrlPTag<cr>
 nnoremap <silent> <Leader>b :TagbarToggle<CR>
+
+" --- ctrlp ---
+let g:ctrlp_dont_split = 'NERD_tree_2'
+set wildignore+=*.pyc,*/*.egg-info/*
+set wildignore+=.git,.hg
+set wildignore+=*.orig
+set wildignore+=*.jpg,*.jpeg,*.gif,*.png
+set wildignore+=*.mp3
+set wildignore+=*.sw?
+
+" --- Git Gutter ---
+highlight clear SignColumn  " same as the row number column
+highlight GitGutterAddDefault          guifg=Green  guibg=NONE  ctermfg=DarkGreen   ctermbg=NONE
+highlight GitGutterChangeDefault       guifg=Yellow guibg=NONE  ctermfg=DarkYellow  ctermbg=NONE
+highlight GitGutterDeleteDefault       guifg=Red    guibg=NONE  ctermfg=DarkRed     ctermbg=NONE
 
 colorscheme dracula
 
@@ -99,7 +129,7 @@ set encoding=utf-8 nobomb
 " Change mapleader
 let mapleader=","
 
-" Don‚Äôt add empty newlines at the end of files
+" Don’t add empty newlines at the end of files
 set binary
 set noeol
 
@@ -109,7 +139,7 @@ set noeol
 " 	set undodir=~/.vim/undo
 " endif
 
-" Don‚Äôt create backups when editing files in certain directories
+" Don’t create backups when editing files in certain directories
 set backupskip=/tmp/*,/private/tmp/*
 
 " Respect modeline in files
@@ -124,8 +154,8 @@ set number
 syntax on
 " Highlight current line
 set cursorline
-" Show ‚Äúinvisible‚Äù characters
-set lcs=tab:‚ñ∏\ ,trail:¬∑,eol:¬¨,nbsp:_
+" Show “invisible” characters
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
 " Highlight searches
 set hlsearch
@@ -139,17 +169,17 @@ set laststatus=2
 set mouse=a
 " Disable error bells
 set noerrorbells
-" Don‚Äôt reset cursor to start of line when moving around.
+" Don’t reset cursor to start of line when moving around.
 set nostartofline
 " Show the cursor position
 set ruler
-" Don‚Äôt show the intro message when starting Vim
+" Don’t show the intro message when starting Vim
 set shortmess=atI
 " Show the current mode
 set showmode
 " Show the filename in the window titlebar
 set title
-" Show the (partial) command as it‚Äôs being typed
+" Show the (partial) command as it’s being typed
 set showcmd
 " " Use relative line numbers
 " if exists("&relativenumber")
