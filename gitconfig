@@ -1,8 +1,6 @@
 [user]
-	name = yeshwanthyk
+	name = Yesh  (Keerthi Yendamuri)
 	email = yeshwanth.yk@gmail.com
-[core]
-	excludesfile = /Users/kyendamuri/.gitignore_global
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
